@@ -25,5 +25,5 @@ def factorization(x,F):
 
 
 if __name__ == "__main__":
-	factors = arrayF(100)
-	print(factorization(4,factors))
+	factors = arrayF(20)
+	print(factorization(14,factors))
