@@ -15,8 +15,8 @@ public:
 		for (int i = 0; i < n; ++i)
 			m_pEdges[i] = new int[n];
 
-		for (int i = 0; i < count; ++i)
-			for (int j = 0; j < count; ++j)
+		for (int i = 0; i < n; ++i)
+			for (int j = 0; j < n; ++j)
 				m_pEdges[i][j] = 0;
 		
 		
@@ -40,7 +40,7 @@ public:
 	void display()
 	{
 
-		cout<<"Size : "<<m_vEdges.size()<<endl;
+		
 		for (int i = 0; i < m_nNodes; ++i) {
 			for (int j = 0; j < m_nNodes; ++j)
 				{
