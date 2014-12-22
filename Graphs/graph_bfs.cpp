@@ -41,6 +41,14 @@ public:
 
 	}
 
+	//TODO : The return should be a Iterable list
+	//Not sure what to use in C++
+	vector<int> adj(int v)
+	{
+
+		return m_vEdges[v];
+	}
+
 //TODO:Make this private and provide a public iterable function 
 //To access the adjacency
 		vector<vector<int>> m_vEdges;
@@ -72,35 +80,37 @@ public:
 		queue<int> bfs_q;
 		marked[v] = true;
 
-		/*for (int i = 0; i < m_gGraph.m_vEdges[vertex].size(); ++i)
-		{
-					bfs_q.push(m_gGraph.m_vEdges[vertex][i]);
-					marked[m_gGraph.m_vEdges[vertex][i]] = false;
-		}*/
-		
+				
 		bfs_q.push(v);
 
 		while(!bfs_q.empty())
 		{
-			cout<<"Inside queue"<<endl;
+			//cout<<"Inside queue"<<endl;
 			int u = bfs_q.front();
 			bfs_q.pop();
-			cout<<"Next node to be processed "<<u<<endl;
+			//cout<<"Next node to be processed "<<u<<endl;
 			for (int i = 0; i < m_gGraph.m_vEdges[u].size(); ++i)
 			{
 				if(!marked[m_gGraph.m_vEdges[u][i]])
 				{
 					marked[m_gGraph.m_vEdges[u][i]] = true;
 					bfs_q.push(m_gGraph.m_vEdges[u][i]);
+					edgeTo[m_gGraph.m_vEdges[u][i]] = u;
 				}
 			}
 
 		}
 
+	}
 
+	void displayEdgeTo()
+	{
 
-
-
+		for (int i = 0; i < vertex; ++i)
+			cout<<edgeTo[i]<<" ";
+			
+		cout<<endl;
+		
 	}
 
 
@@ -138,7 +148,7 @@ int main()
 
 	bfstraversal.bfs(0);//BFS from the node 0. For simplicity
 
-
+	bfstraversal.displayEdgeTo();
 
 	return 0;
 
