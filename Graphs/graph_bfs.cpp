@@ -1,8 +1,10 @@
-#include<iostream>
-#include<vector>
-#include<queue>
-#include"graph.h"
+#include <iostream>
+#include <vector>
+#include <queue>
+//#include "graph.h"
+#include "graph.cpp"
 using namespace std;
+
 
 class CBFSTraversal
 {
@@ -13,7 +15,7 @@ public:
 		for (int i = 0; i < v; ++i)
 		{
 			marked.push_back(false);
-			edgeTo.push_back(-1);
+			//edgeTo.push_back(-1);
 		}
 	}
 
@@ -32,14 +34,14 @@ public:
 			//cout<<"Inside queue"<<endl;
 			int u = bfs_q.front();
 			bfs_q.pop();
-			//cout<<"Next node to be processed "<<u<<endl;
+			cout<<"Next node to be processed "<<u<<endl;
 			for (int i = 0; i < m_gGraph.m_vEdges[u].size(); ++i)
 			{
 				if(!marked[m_gGraph.m_vEdges[u][i]])
 				{
 					marked[m_gGraph.m_vEdges[u][i]] = true;
 					bfs_q.push(m_gGraph.m_vEdges[u][i]);
-					edgeTo[m_gGraph.m_vEdges[u][i]] = u;
+					edgeTo[i] = u;
 				}
 			}
 
