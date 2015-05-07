@@ -10,12 +10,12 @@ class CBFSTraversal
 {
 
 public:
-	CBFSTraversal(CGraph graphObject , int v) : m_gGraph(graphObject),vertex(v)
+	CBFSTraversal(CGraph graphObject, int v) : m_gGraph(graphObject), vertex(v)
 	{
 		for (int i = 0; i < v; ++i)
 		{
 			marked.push_back(false);
-			//edgeTo.push_back(-1);
+			edgeTo.push_back(-1);
 		}
 	}
 
@@ -26,22 +26,22 @@ public:
 		queue<int> bfs_q;
 		marked[v] = true;
 
-				
+
 		bfs_q.push(v);
 
-		while(!bfs_q.empty())
+		while (!bfs_q.empty())
 		{
 			//cout<<"Inside queue"<<endl;
 			int u = bfs_q.front();
 			bfs_q.pop();
-			cout<<"Next node to be processed "<<u<<endl;
+			cout << "Next node to be processed " << u << endl;
 			for (int i = 0; i < m_gGraph.m_vEdges[u].size(); ++i)
 			{
-				if(!marked[m_gGraph.m_vEdges[u][i]])
+				if (!marked[m_gGraph.m_vEdges[u][i]])
 				{
 					marked[m_gGraph.m_vEdges[u][i]] = true;
 					bfs_q.push(m_gGraph.m_vEdges[u][i]);
-					edgeTo[i] = u;
+					edgeTo[m_gGraph.m_vEdges[u][i]] = u;
 				}
 			}
 
@@ -51,20 +51,17 @@ public:
 
 	void displayEdgeTo()
 	{
-
 		for (int i = 0; i < vertex; ++i)
-			cout<<edgeTo[i]<<" ";
-			
-		cout<<endl;
-		
+			cout << i << " " << edgeTo[i] << " ";
+		cout << endl;
 	}
 
 
 private:
-	int vertex;
-	CGraph m_gGraph;
-	vector<bool> marked;
-	vector<int> edgeTo;
+	int vertex; //Vertex to be processed
+	CGraph m_gGraph; //The graph object
+	vector<bool> marked; //Array to hold if the vertex was visited
+	vector<int> edgeTo; // How we arrived at that edge
 
 };
 
@@ -73,24 +70,24 @@ private:
 int main()
 {
 
-	int nods,eds;
-	cout<<"Nodes :";
-	cin>>nods;
-	cout<<"Edges :";
-	cin>>eds;
+	int nods, eds;
+	cout << "Nodes :";
+	cin >> nods;
+	cout << "Edges :";
+	cin >> eds;
 
-	CGraph graph(nods,eds);
-	
-	cout<<"Adjacency Edges"<<endl;
-	for(int i = 0 ; i < eds ;i++)
+	CGraph graph(nods, eds);
+
+	cout << "Adjacency Edges" << endl;
+	for (int i = 0; i < eds; i++)
 	{
-		int v,u;
-		cin>>v>>u;
-		graph.addEdges(v,u);
+		int v, u;
+		cin >> v >> u;
+		graph.addEdges(v, u);
 	}
 
 
-	CBFSTraversal bfstraversal(graph,nods);
+	CBFSTraversal bfstraversal(graph, nods);
 
 	bfstraversal.bfs(0);//BFS from the node 0. For simplicity
 
@@ -99,4 +96,4 @@ int main()
 	return 0;
 
 }
- 
+
