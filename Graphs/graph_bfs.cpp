@@ -16,6 +16,7 @@ public:
 		{
 			marked.push_back(false);
 			edgeTo.push_back(-1);
+			distance.push_back(0);
 		}
 	}
 
@@ -26,7 +27,7 @@ public:
 		queue<int> bfs_q;
 		marked[v] = true;
 
-
+		int ndistance = 1;
 		bfs_q.push(v);
 
 		while (!bfs_q.empty())
@@ -42,8 +43,12 @@ public:
 					marked[m_gGraph.m_vEdges[u][i]] = true;
 					bfs_q.push(m_gGraph.m_vEdges[u][i]);
 					edgeTo[m_gGraph.m_vEdges[u][i]] = u;
+					distance[m_gGraph.m_vEdges[u][i]] = ndistance;
 				}
+				
+
 			}
+			ndistance++;
 
 		}
 
@@ -51,8 +56,19 @@ public:
 
 	void displayEdgeTo()
 	{
+		cout << "Vertex" << "\t" << "EdgeTo \n";
 		for (int i = 0; i < vertex; ++i)
-			cout << i << " " << edgeTo[i] << " ";
+			cout << i << "\t" << edgeTo[i] <<"\n";
+		cout << endl;
+	}
+
+	//Distance to the root node.
+	//In our case it is the node 0 or the vertex 0
+	void displayDistances()
+	{
+		cout << "Vertex" << "\t" << "Distance \n";
+		for (int i = 0; i < vertex; ++i)
+			cout << i << "\t" << distance[i] << "\n";
 		cout << endl;
 	}
 
@@ -62,6 +78,7 @@ private:
 	CGraph m_gGraph; //The graph object
 	vector<bool> marked; //Array to hold if the vertex was visited
 	vector<int> edgeTo; // How we arrived at that edge
+	vector<int> distance; //To store the distance that it took to reach this vertex/node
 
 };
 
@@ -71,14 +88,14 @@ int main()
 {
 
 	int nods, eds;
-	cout << "Nodes :";
+	cout << "Nodes : ";
 	cin >> nods;
-	cout << "Edges :";
+	cout << "Edges : ";
 	cin >> eds;
 
 	CGraph graph(nods, eds);
 
-	cout << "Adjacency Edges" << endl;
+	cout << "Adjacency Edges " << endl;
 	for (int i = 0; i < eds; i++)
 	{
 		int v, u;
@@ -92,6 +109,7 @@ int main()
 	bfstraversal.bfs(0);//BFS from the node 0. For simplicity
 
 	bfstraversal.displayEdgeTo();
+	bfstraversal.displayDistances();
 
 	return 0;
 
