@@ -43,6 +43,12 @@ using namespace std;
 		return m_vEdges[v];
 	}
 
+	//Returns the #of nodes connected to the vertes
+	int CGraph::degree(int vertex)
+	{
+		return m_vEdges[vertex].size();
+	}
+
 		
 		
 
