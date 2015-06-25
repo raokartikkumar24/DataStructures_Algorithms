@@ -57,6 +57,23 @@ node *reverese(node *t)
 
 }
 
+node* ReverseList(node *head)
+{
+  // Complete this method
+    node *current,*previous,*nextNode;
+    current = head;
+    previous = NULL;
+    while( current )
+    {
+           nextNode = current->next;
+           current->next = previous;
+           previous = current;
+           current = nextNode;
+    }
+    head = previous;
+    return head;
+}
+
 };
 
 
