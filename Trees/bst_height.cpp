@@ -44,6 +44,23 @@ void heightOfTree(tree *node)
 		
 }
 
+//A better method to find the height of the tree
+int height_of_tree(heightOfTree *_node)
+{
+
+	if(_node == NULL ) return 0;
+    else
+        {
+            int l = height_of_tree(_node->left);
+            int r = height_of_tree(_node->right);
+        
+            if( l > r)
+                return l+1;
+            else
+                return r+1;
+    }
+}
+
 void inorder(tree *node )
 {
 	if(node != NULL )
@@ -77,6 +94,8 @@ int main()
 	
 	cout<<"Height of the BST is : "<<endl;
 	root->heightOfTree(root);
+
+	cout << root->height_of_tree(root);
 	
 	return 0;
 	
