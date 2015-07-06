@@ -1,4 +1,5 @@
-#include<iostream>
+#include <iostream>
+#include <queue>
 using namespace std;
 
 class tree 
@@ -84,6 +85,33 @@ public:
 		}
 	}
 
+
+	void level_order_traversal( tree *node )
+	{
+			queue<tree*> q;
+			q.push(node);
+
+			while(!q.empty())
+			{
+				
+
+				tree* val = q.front();
+				cout << val->value << " ";
+				
+				
+
+				if(  val->left != NULL )
+					q.push(val->left);
+				if( val->right != NULL )
+					q.push(val->right);
+
+				q.pop();
+
+
+
+			}
+
+	}
 	int getval() { return this->value; }
 
 	/*void createTree2(tree** node, int val)
@@ -139,7 +167,7 @@ int main()
 	root = root->createTree(root,10);
 	root = root->createTree(root,11);
 	root = root->createTree(root,8);
-	root = root->createTree(root,3);
+	root = root->createTree(root,80);
 	root = root->createTree(root,500);
 	
 	/*cout<<"Pre-order : " ;
@@ -157,11 +185,13 @@ int main()
 
 	//root->sumpath(root,71,0);
 
-	root->inorder_level(root,0);
+	//root->inorder_level(root,0);
 
 
-	cout << "\n new inorder traversal \n";
-	root->inorder_level_new(root,0);
+	cout << "\n Level order traveseral \n";
+	//root->inorder_level_new(root,0);
+
+	root->level_order_traversal(root);
 
 	/*tree *tr = NULL;
 	tr->createTree2(&tr,1000);
