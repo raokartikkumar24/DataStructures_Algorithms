@@ -83,14 +83,16 @@ public:
 
 	tree* lca(tree* node, int val1, int val2)
 	{
-		tree *root = node;
-		if( search( root,val1) && search(root, val2 ) )
-			return root;
-		else {
-			root = lca(root->left,val1,val2);
-			root = lca(root->right,val1,val2);
-		}
-		
+		if(node == NULL)
+			return NULL;
+
+		if(node->value > val1 && node->value > val2)
+			return lca(node->left,val1,val2);
+
+		if(node->value < val1 && node->value < val2)
+			return lca(node->right, val1, val2);
+
+		return node;
 	}
 
 	int findmax(tree *node,int max)
