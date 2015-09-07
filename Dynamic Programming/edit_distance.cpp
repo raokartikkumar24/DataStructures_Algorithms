@@ -51,7 +51,7 @@ int EditDistance()
 {
 	int i,j,k;
 	int opt[3];
-	for( i = 0 ; i < MAXLEN; ++i)
+	for( i = 0 ; i < MAXLEN; ++i) 
 	{
 		row_init(i);
 		column_init(i);
@@ -81,6 +81,8 @@ int EditDistance()
 		}
 	}
 
+//	cout << i << " " << j << endl;
+
 	return (cell[i-1][j-1].cost);
 
 }
@@ -90,8 +92,8 @@ void display()
 {
 	int i,j;
 	ofstream output("C:\\temp\\matrix.txt");
-	for(i = 0;  i <= text.length() ; i++) {
-		for(j = 0 ; j <= pattern.length() ;++j) {
+	for(i = 0;  i <= text.length() + 10 ; i++) {
+		for(j = 0 ; j <= pattern.length() + 10 ;++j) {
 			output << cell[i][j].cost << "\t";
 		}
 		output << endl;
@@ -107,12 +109,29 @@ void PrintSequence()
 int main()
 {
 	
-	getline(cin,text);
-	getline(cin,pattern);
+	string t,p;
 
-	cout << text.length() << "\t" << pattern.length() << endl;
 
-	cout << "It will take " << EditDistance() << " insertion/deletion/substitution  to convert " << text << " into " << pattern << endl;
+
+	getline(cin,t);
+	getline(cin,p);
+
+	//store dummy 0th character.
+	text += '$'; //the calculation starts from 1 and not 0
+	pattern += '$';//so we need to make sure we start from 1
+
+	for(int i = 0 ; i < t.length(); ++i)
+		text += t[i];
+
+	for(int i = 0 ; i < p.length(); ++i)
+		pattern += p[i];
+
+
+
+
+	//cout << text.length() << "\t" << pattern.length() << endl;
+
+	cout << "It will take " << EditDistance() << " insertion/deletion/substitution  to convert " << t << " into " << p << endl;
 
 	display();
 	//PrintSequence();
