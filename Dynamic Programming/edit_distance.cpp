@@ -47,6 +47,41 @@ int indel(char c)
 	return 1;
 }
 
+
+void match(int i , int j)
+{
+	if(text[i] == pattern[j]) cout << "M";
+	else cout << "S";
+}
+
+void PrintSequence(int i, int j)
+{
+
+	if( cell[i][j].parent == -1) return;
+
+	if( cell[i][j].parent == MATCH )
+	{
+		PrintSequence(i-1,j-1);
+		match(i,j);
+		return;
+	}
+
+	if( cell[i][j].parent == INSERT )
+	{
+		PrintSequence(i,j-1);
+		cout << "I";
+		return;
+	}
+
+	if( cell[i][j].parent == DELETE )
+	{
+		PrintSequence(i-1,j);
+		cout << "D";
+		return ;
+	}
+	
+}
+
 int EditDistance()
 {
 	int i,j,k;
@@ -83,6 +118,7 @@ int EditDistance()
 
 //	cout << i << " " << j << endl;
 
+	PrintSequence(i-1,j-1);
 	return (cell[i-1][j-1].cost);
 
 }
@@ -100,11 +136,7 @@ void display()
 	}
 }
 
-void PrintSequence()
-{
-	//this will print the sequence of insertions/deletions/substitutions and match
-	//TODO : Implement this next
-}
+
 
 int main()
 {
@@ -131,7 +163,7 @@ int main()
 
 	//cout << text.length() << "\t" << pattern.length() << endl;
 
-	cout << "It will take " << EditDistance() << " insertion/deletion/substitution  to convert " << t << " into " << p << endl;
+	cout << "\nIt will take " << EditDistance() << " insertion/deletion/substitution  to convert " << t << " into " << p << endl;
 
 	display();
 	//PrintSequence();
