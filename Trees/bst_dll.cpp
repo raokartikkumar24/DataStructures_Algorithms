@@ -88,7 +88,8 @@ int main()
 
 	root->convertToDLL(root,&head);
 
-	root->printDLL(root);
+	//head node is updated so print 
+	root->printDLL(head);
 	
 	return 0;
 }
