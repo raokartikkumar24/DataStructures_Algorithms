@@ -28,8 +28,9 @@ public:
 	{
 		if( node != NULL )
 		{
-			preorder(node->left);
 			cout<<node->value<<" ";
+			preorder(node->left);
+			//cout<<node->value<<" ";
 			preorder(node->right);
 
 		}
@@ -52,51 +53,31 @@ public:
 
 		if( node != NULL )
 		{
-			cout<<node->value<<" ";
+			//cout<<node->value<<" ";
 			inorder(node->left);
+			cout<<node->value<<" ";
 			inorder(node->right);
 
 		}
 
 	}
 
-	void inorder_level(tree *node,int level)
-	{
-
-		if( node != NULL )
-		{
-			node->level = level;
-			cout<<"value :"<<node->value<<" "<<"level : "<<level<<endl;
-			level++;
-			inorder_level(node->left,level);
-			inorder_level(node->right,level);
-
-		}
-
-	}
-
+	void updateNextRight(tree *root)
 	{
 			queue<tree*> q;
-			q.push(node);
+			q.push(root);
 
 			while(!q.empty())
 			{
-				
 
 				tree* val = q.front();
 				cout << val->value << " ";
-				
-				
-
-				if(  val->left != NULL )
+				if(val->left != NULL)	
 					q.push(val->left);
 				if( val->right != NULL )
 					q.push(val->right);
 
 				q.pop();
-
-
-
 			}
 
 	}
@@ -119,6 +100,7 @@ int main()
 	root = root->createTree(root,80);
 	root = root->createTree(root,500);
 	
+	root->updateNextRight(root);
 
 	return 0;
 }

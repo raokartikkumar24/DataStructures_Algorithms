@@ -37,7 +37,7 @@ using namespace std;
 		if(root->key>max || root->key<min)
 			return false;
 			
-		return((isbst(root->left,root->key,min) && isbst(root->right,max, root->key));
+		return((isbst(root->left,root->key-1,min) && isbst(root->right,max, root->key+1));
 		
   }
   
