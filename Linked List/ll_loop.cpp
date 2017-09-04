@@ -105,6 +105,26 @@ int loopLocation(node *n)
 
 }
 
+bool has_cycle(node* head) {
+    
+    if(!head) return false;
+    
+    if(head->next == NULL) return false;
+    
+    Node *slow;
+    Node *fast;
+    slow = head;
+    fast = head->next->next;
+    while(fast != slow) {
+        if(!fast) return false;
+        if(fast->next == NULL || slow->next == NULL) return false;
+        fast = fast->next->next;
+        slow = slow->next;
+        
+    }
+    return true;
+}
+
 private:
 int value;
 node *next;
