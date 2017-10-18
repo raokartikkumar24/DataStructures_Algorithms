@@ -18,6 +18,20 @@ void print(Node *head){
     }
 }
 
+void reverseList(Node **head){
+    Node *nextNode = NULL;
+    Node *currentNode = *head;
+    Node *anotherNode = NULL;
+    
+    while(currentNode != NULL){
+        nextNode = currentNode->next;
+        currentNode->next = anotherNode;
+        anotherNode = currentNode;
+        currentNode = nextNode;
+    }
+    *head = anotherNode;
+}
+
 bool checkForPalindrome(Node *mid, Node *first){
     static bool palin = true;
     if(mid != NULL){
@@ -42,12 +56,14 @@ bool isPalindrome(Node *head){
     Node *first = head;
     
     while(fast || fast->next != NULL){
-        if(fast->next->next == NULL) break;
+        if(fast->next == NULL) break;
         fast = fast->next->next;
+        if(!fast) break;
         slow = slow->next;
-        
     }
     slow = slow->next;
+    
+    reverseList(&slow);
     
     bool isPalin = true;
     while(slow != NULL){
@@ -88,11 +104,10 @@ int main()
             int x; cin>>x;
             A = Insert(A,x);
         }
-        //        bool isP = isPalindrome(A);
-        //        if(isP) cout << "Palindrom \n";
-        //        else cout << "not a palindrome \n";
+        bool isP = isPalindrome(A);
+        if(isP) cout << "Palindrome \n";
+        else cout << "not a palindrome \n";
         
-        print(A);
+        //print(A);
     }
 }
-
