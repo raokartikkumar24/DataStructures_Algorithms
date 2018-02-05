@@ -29,8 +29,7 @@ public:
         
         vLines[hd].push_back(root->key);
         
-        printDiagonalLines(root->left, hd-1, vLines);
-        
+        printDiagonalLines(root->left, hd+1, vLines);
         printDiagonalLines(root->right, hd, vLines);
         
     }
@@ -42,6 +41,7 @@ public:
         map< int,vector<int> > :: iterator it;
         for (it=diagLines.begin(); it!=diagLines.end(); it++)
         {
+            cout << it->first << " --> ";
             for (int i=0; i<it->second.size(); ++i)
                 cout << it->second[i] << " ";
             cout << "\n";
