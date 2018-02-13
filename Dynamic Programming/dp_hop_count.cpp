@@ -11,7 +11,7 @@ int minJumps(vector<int> Array)
 
 	jumpArray[0] = 0;
 
-	for(int i = 1; i <n ; i++ ) {
+	for(int i = 1; i < Array.size() ; i++ ) {
 		jumpArray[i] = INT_MAX;
 		for(int j = 0 ; j < i; j++) {
 			if(i <= j + Array[j] && jumpArray[j] != INT_MAX) {
@@ -22,7 +22,7 @@ int minJumps(vector<int> Array)
 	
 	}
 
-	return jumpArray[n-1];
+	return jumpArray[Array.size()-1];
 
 }
 
@@ -34,6 +34,9 @@ int main()
 	cin >> n;
 	
 	vector<int> jArray(n);
+    
+    for(int i = 0 ; i < n; i++)
+        cin >> jArray[i];
 
 	cout << minJumps(jArray) << endl;
 
