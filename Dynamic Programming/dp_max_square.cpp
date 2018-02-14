@@ -10,37 +10,45 @@ using namespace std;
 
 int main()
 {
-    
-    int matrix[6][5] ;
-    for(int i = 0 ; i < 6; i++) {
-        for(int j = 0 ; j < 5; j++) {
+    int rows, cols;
+    cin >> rows >> cols;
+    int matrix[rows][cols] ;
+    for(int i = 0 ; i < rows; i++) {
+        for(int j = 0 ; j < cols; j++) {
             cin >> matrix[i][j];
         }
     }
     
-    int sumMatrix[6][5];
+    int sumMatrix[rows][cols];
     
-    for(int i = 0 ; i < 5; i++)
+    for(int i = 0 ; i < cols; i++)
         sumMatrix[0][i] = matrix[0][i];
     
-    for(int i = 0 ; i < 6; i++)
+    for(int i = 0 ; i < rows; i++)
         sumMatrix[i][0] = matrix[i][0];
     
-    for(int i = 1; i < 6; i++) {
-        for(int j = 1; j < 5; j++) {
+    for(int i = 1; i < rows; i++) {
+        for(int j = 1; j < cols; j++) {
             
             if(matrix[i][j] == 1)
-                sumMatrix[i][j] = min(matrix[i-1][j], min(matrix[i][j-1], matrix[i-1][j-1])) + 1;
+                sumMatrix[i][j] = min(sumMatrix[i-1][j], min(sumMatrix[i][j-1], sumMatrix[i-1][j-1])) + 1;
             else
                 sumMatrix[i][j] = 0;
             
         }
     }
     
+    
+    //    for(int i = 0 ; i < rows; i++) {
+    //        for(int j = 0 ; j < cols; j++)
+    //            cout << sumMatrix[i][j] << "\t";
+    //        cout << "\n";
+    //    }
+    
     int max_i = 0, max_j = 0;
     int max_sum = sumMatrix[0][0];
-    for(int i = 0; i < 6; i++) {
-        for(int j = 0; j < 5; j++) {
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
             if(max_sum < sumMatrix[i][j]){
                 max_sum = sumMatrix[i][j];
                 max_i = i;
@@ -57,4 +65,3 @@ int main()
     }
     
 }
-
