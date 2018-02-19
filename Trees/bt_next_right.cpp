@@ -36,51 +36,42 @@ public:
 		}
 	}
 
-	void postorder(tree* node)
-	{
-		if( node != NULL )
-		{
-			postorder(node->left);
-			postorder(node->right);
-			cout<<node->value<<" ";
-		}
 
-	}
-
-
-	void inorder(tree *node)
-	{
-
-		if( node != NULL )
-		{
-			//cout<<node->value<<" ";
-			inorder(node->left);
-			cout<<node->value<<" ";
-			inorder(node->right);
-
-		}
-
-	}
-
-	void updateNextRight(tree *root)
-	{
+	tree* updateNextRight(tree *root, int k) {
+            if(!root) return NULL;
+        
 			queue<tree*> q;
+            queue<int> q1;
 			q.push(root);
-
-			while(!q.empty())
-			{
+            int level = 0;
+            q1.push(level);
+			while(!q.empty()) {
 
 				tree* val = q.front();
-				cout << val->value << " ";
-				if(val->left != NULL)	
-					q.push(val->left);
-				if( val->right != NULL )
-					q.push(val->right);
-
+                level = q1.front();
 				q.pop();
-			}
-
-	}
+                q1.pop();
+                if(val->value == k) {
+                    if (q1.size() == 0 || q1.front() != level)
+                        return NULL;
+                    
+                    return q.front();
+                }
+                
+                if (val->left != NULL)
+                {
+                    q.push(val->left);
+                    q1.push(level+1);
+                }
+                if (val->right != NULL)
+                {
+                    q.push(val->right);
+                    q1.push(level+1);
+                }
+            }
+         return NULL;
+        }
+	
 
 private:
 	tree *left;
@@ -100,7 +91,7 @@ int main()
 	root = root->createTree(root,80);
 	root = root->createTree(root,500);
 	
-	root->updateNextRight(root);
+	root->updateNextRight(root,100);
 
 	return 0;
 }
