@@ -7,7 +7,7 @@ class tree
 
 public:
 
-	tree(int _val) : left( NULL ), right ( NULL ), value(_val) {}
+	tree(int _val) : left( NULL ), right ( NULL ), nextRight(NULL), value(_val) {}
 	
 	tree* createTree(tree *newNode, int val)
 	{
@@ -28,54 +28,41 @@ public:
 	{
 		if( node != NULL )
 		{
-			cout<<node->value<<" ";
+            if(node->nextRight) {
+			cout<<node->nextRight->value<<" ";
 			preorder(node->left);
-			//cout<<node->value<<" ";
 			preorder(node->right);
-
+            }
 		}
 	}
 
 
-	tree* updateNextRight(tree *root, int k) {
-            if(!root) return NULL;
+	void updateNextRight(tree *root) {
+        if(!root) return;
+        queue<tree*> nodes;
+        nodes.push(root);
+        nodes.push(NULL); //marking end of the level
         
-			queue<tree*> q;
-            queue<int> q1;
-			q.push(root);
-            int level = 0;
-            q1.push(level);
-			while(!q.empty()) {
-
-				tree* val = q.front();
-                level = q1.front();
-				q.pop();
-                q1.pop();
-                if(val->value == k) {
-                    if (q1.size() == 0 || q1.front() != level)
-                        return NULL;
-                    
-                    return q.front();
-                }
+        while(!nodes.empty()) { //here we check if we have already visited that level
+            tree *temp = nodes.front();
+            nodes.pop();
+            if(temp) {
+                temp->nextRight = nodes.front();
                 
-                if (val->left != NULL)
-                {
-                    q.push(val->left);
-                    q1.push(level+1);
-                }
-                if (val->right != NULL)
-                {
-                    q.push(val->right);
-                    q1.push(level+1);
-                }
+                if(temp->left) nodes.push(temp->left);
+                if(temp->right) nodes.push(temp->right);
             }
-         return NULL;
+            else if(!nodes.empty()) //mark that this level is done visiting
+                nodes.push(NULL);
         }
+			
+    }
 	
 
 private:
 	tree *left;
 	tree *right;
+    tree *nextRight;
 	int value;
 };
 
@@ -91,7 +78,8 @@ int main()
 	root = root->createTree(root,80);
 	root = root->createTree(root,500);
 	
-	root->updateNextRight(root,100);
+	root->updateNextRight(root);
+    root->preorder(root);
 
 	return 0;
 }
