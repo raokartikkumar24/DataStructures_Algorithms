@@ -60,7 +60,27 @@ public:
         leftView(root->right, level+1, max_level);
         
     }
+    
+    void rightView(tree *root, int level, int *max_level) {
+        
+        if(!root) return;
+        
+        if(*max_level < level) {
+            cout << root->value << "\t";
+            *max_level = level;
+        }
+        
+        rightView(root->right, level+1, max_level);
+        rightView(root->left, level+1, max_level);
+        
+    }
 
+    
+    void rightViewUtil(tree *root) {
+        int max_val = 0;
+        rightView(root,1,&max_val);
+    }
+    
     void leftViewUtil(tree *root) {
         int max_val = 0;
         leftView(root,1,&max_val);
@@ -85,7 +105,11 @@ int main()
 	root = root->createTree(root,80);
 	root = root->createTree(root,500);
 	
+    printf("Left view of the tree \n");
 	root->leftViewUtil(root);
+    
+     printf("\n Right view of the tree \n");
+    root->rightViewUtil(root);
 
 	return 0;
 }
