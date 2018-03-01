@@ -37,6 +37,9 @@ int main()
 
 		cout << maxx << "\n";
 
+		for(int i = 0 ; i < N; i++)
+			cout << dp[i] << "\n";
+
 	}
 
 	return 0;

@@ -1,6 +1,6 @@
 /**
  Program to return the column name for a index in a excel sheet
- For example 1 : A, 705: AAC, 28 : AB 
+ For example 1 : A, 705: AAC, 28 : AB
  **/
 #include <iostream>
 #include <algorithm>
