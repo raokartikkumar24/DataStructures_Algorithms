@@ -4,6 +4,7 @@
 #include<stdlib.h>
 typedef long long LL;
 using namespace std;
+//TODO : Create a Interface IHeapSort and derive minHeap and maxHeap concrete classes.
 class heapSort
 {
 	private:
@@ -15,6 +16,7 @@ class heapSort
 	{	
 		Num = N;
 		ele = new LL[N];
+        memset(ele, 0, N);
 		index= 0;
 	}
 
@@ -37,12 +39,30 @@ class heapSort
 			k = k/2;//increment over k/2 as the value is the location is that of the parent.
 		}
 	}
+    
+    
+    void swimMin(LL k)
+    {
+        
+        while( k > 1 && ele[k/2] > ele[k] )
+        {
+            swap(k,k/2);
+            k = k/2;
+        }
+    }
+
 
 	void insert(LL value)
 	{
 		ele[++index] = value;//always insert at the last and then swim the element to the correct position
 		swim(index);
 	}
+    
+    void insertMin(LL value)
+    {
+        ele[++index] = value;//always insert at the last and then swim the element to the correct position
+        swimMin(index);
+    }
 
 	void display()
 	{
@@ -68,6 +88,20 @@ class heapSort
 			
 		}
 	}
+    
+    void sinkMin(LL k)
+    {
+        while( 2*k <= index )
+        {
+            LL j  = 2*k;
+            if(j < index && ele[j] > ele[j+1])
+                j++;
+            if(ele[k]<ele[j])break;
+            swap(k,j);
+            k = j;
+        }
+    }
+    
 	LL deleteMax()
 	{
 		LL j = ele[1];//the first element is the max
@@ -75,6 +109,14 @@ class heapSort
 		sink(1);//balance the heap again
 		return j;
 	}
+    
+    LL deleteMin()
+    {
+        LL j = ele[1];
+        swap(1,index--);
+        sinkMin(1);
+        return j;
+    }
 
 	void sort()
 	{
@@ -98,8 +140,32 @@ class heapSort
 
 
 };
+
+
 int main()
 {
+    int N;
+    cin >> N;
+    
+    heapSort heap(N+1); //first index is 0
+    
+    for(int i = 0 ; i < N; i++) {
+        LL num;
+        cin >> num;
+        heap.insertMin(num);
+        heap.display();
+    }
+    
+    
+    heapSort heapMax(N+1);
+    for(int i = 0 ; i < N; i++) {
+        LL num;
+        cin >> num;
+        heap.insert(num);
+        heap.display();
+    }
+    
+    /*
 	LL c = 0;
 	
 	string csNumbers;
@@ -107,8 +173,6 @@ int main()
 	while(!mystream.eof())
 	{
 		getline(mystream,csNumbers);
-		//
-		//cout<<x;
 		c++;
 	}
 
@@ -117,8 +181,6 @@ int main()
 	mystream.open("sortedList.txt");
 	cout<<"no of nos "<<c<<endl;
 	heapSort hea(c);
-	LL *element = new LL[c];
-	LL i = 0;
 	while(!mystream.eof())
 	{
 		getline(mystream,csNumbers);
@@ -129,7 +191,6 @@ int main()
 	}
 	mystream.close();
 	cout<<endl;
-	//hea.display();
 	
 	cout<<endl;
 
@@ -143,8 +204,10 @@ int main()
 	cout<<endl;
 
 	//cout<<"C = "<<c<<endl;
+     */
 
 return 0;
 	
 
 }
+
