@@ -74,16 +74,32 @@ bool query(Trie* node, string str)
 } */
 
 
-bool search(Trie *root, string str){
+Trie* searchPrefix(Trie *root, string str){
 	Trie *nextNode = root;
 	for(int i =0; i < str.length(); i++){
 		if(nextNode->alpha[str[i] -'a'] == NULL) {
-			return false;
+			return NULL;
 		}
 		nextNode = nextNode->alpha[str[i] -'a'];
 	}
 
-	return (nextNode != NULL && nextNode->end );
+	return nextNode;
+}
+
+
+bool search(Trie *root, string str) {
+
+	Trie *node = searchPrefix(root, str);
+	return node != NULL && node->end;
+
+}
+
+bool startsWith(Trie *root, string str) {
+
+	Trie *node = searchPrefix(root, str);
+
+	return node != NULL;
+
 }
 
 private:
@@ -105,6 +121,7 @@ int main()
 	cout << obj->search(obj,"park") << endl;
 	cout << obj->search(obj,"qwertt") << endl;
 
+	cout << obj->startsWith(obj, "wor");
 	
 	return 0;
 	
