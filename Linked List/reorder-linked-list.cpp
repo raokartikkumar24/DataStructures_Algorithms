@@ -63,7 +63,7 @@ public:
             allList[listlen - 1 - i]->next = allList[i+1];
 
             if(i + 1 == listlen/2) {
-                if(listlen%2 == 0) {
+                if(listlen%2 != 0) {
                     allList[i+1]->next = NULL;
                 }
                 else {
