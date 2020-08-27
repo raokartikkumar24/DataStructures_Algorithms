@@ -16,7 +16,7 @@ int main()
 	ptr = new char*[sp];
 
 	for(int i = 0 ; i < len ;i++)
-		*ptr[i] = new char[len];
+		*ptr[i] = new *char[len];
 
 
 	int j = 0;
